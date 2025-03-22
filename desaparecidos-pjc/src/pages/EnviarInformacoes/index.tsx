@@ -93,7 +93,7 @@ export default function EnviarInformacoes() {
 
     return (
         <div className="max-w-2xl mx-auto p-4">
-            <div className="fixed top-4 left-4 z-50 flex flex-row gap-2">
+            {/* <div className="fixed top-4 left-4 z-50 flex flex-row gap-2">
                 <Link to={`/?pagina=1`}>
                     <button className="bg-gray-100 text-gray-800 px-4 py-2 rounded shadow hover:bg-gray-400 transition">
                         Tela Inicial
@@ -105,7 +105,7 @@ export default function EnviarInformacoes() {
                         Voltar
                     </button>
                 </Link>
-            </div>
+            </div> */}
             <h1 className="text-2xl font-bold mb-4">Enviar Informações sobre a Pessoa</h1>
             {mensagem && (
                 <div className="mb-4 p-2 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-100 rounded">
