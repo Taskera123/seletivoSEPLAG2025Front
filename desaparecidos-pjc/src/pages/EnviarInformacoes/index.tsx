@@ -17,7 +17,6 @@ export default function EnviarInformacoes() {
 
 
     useEffect(() => {
-        console.log("asd", id)
         if (id) {
             axios
                 .get(`${url}/v1/pessoas/${id}`)
@@ -30,8 +29,6 @@ export default function EnviarInformacoes() {
                 });
         }
     }, [id]);
-
-    console.log(ocoId)
 
     // Função para lidar com o upload da foto
     const handleFotoChange = (e: ChangeEvent<HTMLInputElement>) => {

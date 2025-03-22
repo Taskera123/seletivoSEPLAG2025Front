@@ -29,13 +29,12 @@ export default function TopoInstitucional() {
 
   return (
     <header className="w-full bg-gradient-to-r from-gray-900 to-gray-800 text-white shadow">
-      {/* Topo pequeno */}
       <div className="w-full border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 py-1 flex justify-between items-center text-sm">
-          <div className="flex gap-4 items-center flex-wrap">
+          <div className="flex gap-4 md:flex-row  items-center">
             <span>MT.GOV.BR</span>
             <Link to="#" className="hover:underline">Contatos</Link>
-            <span className="hidden md:inline">Acessibilidade:</span>
+            <span className="hidden md:inline">Alternar modo escuro/claro:</span>
             <button
               onClick={() => setDark((prev) => !prev)}
               className="text-lg hover:text-yellow-300 transition"
@@ -44,15 +43,10 @@ export default function TopoInstitucional() {
               {dark ? "☀" : "🌙"}
             </button>
           </div>
-          <div className="hidden md:flex gap-2">
-            <a href="#"><i className="fab fa-facebook" /></a>
-            <a href="#"><i className="fab fa-instagram" /></a>
-            <a href="#"><i className="fab fa-youtube" /></a>
-          </div>
         </div>
       </div>
+      
 
-      {/* Logo e Denúncia */}
       <div className="w-full border-b border-gray-700 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center gap-4">
@@ -73,7 +67,6 @@ export default function TopoInstitucional() {
         </div>
       </div>
 
-      {/* Menu institucional + botões dinâmicos */}
       <nav className="w-full bg-gray-800 border-t border-gray-700">
         <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap gap-4 text-sm font-semibold">
           {/* <Link to="#">INSTITUCIONAL</Link>

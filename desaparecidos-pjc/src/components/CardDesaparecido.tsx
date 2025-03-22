@@ -18,22 +18,10 @@ export default function CardDesaparecido({
   dataDesaparecimento,
   paginaAtual,
 }: Props) {
+  console.log(foto)
   return (
     <Link to={`/detalhes/${id}`} state={{ paginaAtual }}>
       <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition cursor-pointer h-[400px] flex flex-col">
-        {/* <img
-                    src={imagemValida ? foto : imagemPadrao}
-                    alt={nome}
-                    className={`w-full h-48 object-cover transition-opacity duration-500 rounded-t-xl ${carregandoImagem ? "opacity-0" : "opacity-100"
-                        }`}
-                    onLoad={() => setCarregandoImagem(false)}
-                    onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.onerror = null;
-                        target.src = imagemPadrao;
-                        setCarregandoImagem(false);
-                    }}
-                /> */}
         <ImagemComFallback
           src={foto}
           alt={nome}

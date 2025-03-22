@@ -32,18 +32,19 @@ export default function ImagemComFallback({
     destaqueStatus === "Desaparecido"
       ? "border-red-400"
       : destaqueStatus === "Localizado"
-      ? "border-green-400"
-      : "border-gray-200";
+        ? "border-green-400"
+        : "border-gray-200";
 
   return (
     <div className={`relative ${borderColor} border-4 rounded`}>
       {carregando && <div className={skeletonClassName} />}
       <img
+        loading="lazy"
+        decoding="async"
         src={!erro && src ? src : imagemPadrao}
         alt={alt}
-        className={`${className} transition-opacity duration-500 ${
-          carregando ? "opacity-0" : "opacity-100"
-        }`}
+        className={`${className} transition-opacity duration-500 ${carregando ? "opacity-0" : "opacity-100"
+          }`}
         onLoad={() => setCarregando(false)}
         onError={() => {
           setErro(true);
@@ -51,7 +52,7 @@ export default function ImagemComFallback({
           setCarregando(false);
         }}
       />
-      
+
 
       {isFallback && (
         <div className="absolute inset-0 flex items-center justify-center">

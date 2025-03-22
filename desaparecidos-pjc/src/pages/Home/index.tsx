@@ -24,7 +24,7 @@ export default function Home() {
     const url = "https://abitus-api.geia.vip";
     const [lista, setLista] = useState<PessoaDesaparecida[]>([]);
     // const [mostrarFiltros, setMostrarFiltros] = useState(false);
-    const { mostrarFiltros, alternarFiltros  } = useFiltro();
+    const { mostrarFiltros, alternarFiltros } = useFiltro();
     const [filtros, setFiltros] = useState({
         nome: "",
         sexo: "",
@@ -47,7 +47,6 @@ export default function Home() {
             console.error("Erro ao carregar desaparecidos:", err);
         }
     };
-    // console.log(lista)
 
     useEffect(() => {
         const carregarDesaparecidos = async () => {
@@ -67,7 +66,7 @@ export default function Home() {
 
     return (
         <div className="p-4 max-w-7xl mx-auto">
-            <h1 className="text-2xl font-bold mb-4">QUADRO DE PESSOAS</h1>
+            <h1 className="text-2xl font-bold mb-4 ">QUADRO DE PESSOAS DESAPARECIDAS</h1>
             {/* <div className="mb-4 z-50 relative">
                 <button
                     onClick={() => setMostrarFiltros(true)}
@@ -204,20 +203,23 @@ export default function Home() {
                     </div>
                 </div>
             )}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {lista.map((d) => (
-                    <CardDesaparecido
-                        key={d.id}
-                        id={d.id}
-                        nome={d.nome}
-                        foto={d.urlFoto}
-                        situacao={d.vivo ? "Desaparecido" : "Localizado"}
-                        dataDesaparecimento={d.ultimaOcorrencia?.dtDesaparecimento ?? ""}
-                        paginaAtual={pagina}
-                    />
-                ))}
-            </div>
-
+            {lista.length === 0 ? (
+                <div className="col-span-full text-center text-gray-500">Carregando dados...</div>
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {lista.map((d) => (
+                        <CardDesaparecido
+                            key={d.id}
+                            id={d.id}
+                            nome={d.nome}
+                            foto={d.urlFoto}
+                            situacao={d.vivo ? "Desaparecido" : "Localizado"}
+                            dataDesaparecimento={d.ultimaOcorrencia?.dtDesaparecimento ?? ""}
+                            paginaAtual={pagina}
+                        />
+                    ))}
+                </div>
+            )}
             {/* Paginação */}
             <div className="flex justify-center mt-6 space-x-4">
                 <button
