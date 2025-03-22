@@ -1,6 +1,7 @@
 import { useParams, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import ImagemComFallback from "../../components/ImagemComFallBack";
 
 
 interface DetalhesPessoa {
@@ -78,7 +79,7 @@ export default function Detalhes() {
                     to="/"
                     className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
                 >
-                    🏠 Voltar para a página inicial
+                    Voltar para a página inicial
                 </Link>
             </div>
         );
@@ -96,13 +97,33 @@ export default function Detalhes() {
 
     return (
         <div className="max-w-4xl mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Detalhes de {nome}</h1>
+            <div className="fixed top-4 left-4 z-50 flex flex-row gap-2 ">
+            <Link to="/?pagina=1">
+                    <button className="bg-gray-100 text-gray-800 px-4 py-2 rounded hover:bg-gray-200 w-full md:w-auto">
+                        Tela Inicial
+                    </button>
+                </Link>
+
+                <Link to={`/?pagina=${paginaAnterior}`}>
+                    <button className="bg-gray-100 text-gray-800 px-4 py-2 rounded hover:bg-gray-200 w-full md:w-auto">
+                        Voltar para página {paginaAnterior}
+                    </button>
+                </Link>
+            </div>
+            <h1 className="text-2xl font-bold mb-5 gap-4 m-5">Detalhes de {nome}</h1>
             <div className="flex flex-col md:flex-row gap-6">
-                <img
+                {/* <img
                     src={urlFoto || "https://via.placeholder.com/300x400?text=Sem+Foto"}
                     alt={nome}
                     className="w-full md:w-64 h-auto object-cover rounded shadow"
+                /> */}
+                <ImagemComFallback
+                    src={urlFoto}
+                    alt={nome}
+                    destaqueStatus={vivo ? "Desaparecido" : "Localizado"}
+                    className="w-full md:w-64 h-[300px] object-cover rounded"
                 />
+
                 <div className="flex-1 space-y-2">
                     <p><strong>Idade:</strong> {idade}</p>
                     <p><strong>Sexo:</strong> {sexo}</p>
@@ -134,7 +155,7 @@ export default function Detalhes() {
                         </div>
                     )}
                 </div>
-                <div className="mt-6">
+                {/* <div className="mt-6">
                     {vivo ? (
                         <Link to={`/enviar-informacoes/${id}`}>
                             <button
@@ -150,22 +171,23 @@ export default function Detalhes() {
                         </div>
                     )}
 
-                </div>
+                </div> */}
             </div>
-            <Link
-                to="/?pagina=1"
-                className="inline-block mt-4 mr-2 bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 transition"
-            >
-                🏠 Tela Inicial
-            </Link>
-
-            <Link
-                to={`/?pagina=${paginaAnterior}`}
-                className="inline-block mt-6 bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
-            >
-                Voltar ao quadro de pessoas na pagina {paginaAnterior}
-            </Link>
-
+            {/* Botão ou mensagem do topo */}
+            <div className="mt-6">
+                {vivo ? (
+                    <Link to={`/enviar-informacoes/${id}`}>
+                        <button className=" bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white px-4 py-2 rounded transition w-full md:w-auto">
+                            Enviar Informações
+                        </button>
+                    </Link>
+                ) : (
+                    <div className="bg-green-100 text-green-800 px-4 py-2 rounded text-center shadow w-full md:w-auto">
+                        <p className="font-semibold">Agradecemos pela colaboração 🙏</p>
+                        <p className="text-sm">Esta pessoa já foi localizada.</p>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

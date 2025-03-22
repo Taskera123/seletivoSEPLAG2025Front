@@ -1,10 +1,10 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 export default function EnviarInformacoes() {
     const url = "https://abitus-api.geia.vip";
-    const { id } = useParams(); // id da pessoa desaparecida
+    const { id } = useParams();
     const [informacao, setInformacao] = useState("");
     const [local, setLocal] = useState("");
     const [data, setData] = useState("");
@@ -93,9 +93,22 @@ export default function EnviarInformacoes() {
 
     return (
         <div className="max-w-2xl mx-auto p-4">
+            <div className="fixed top-4 left-4 z-50 flex flex-row gap-2">
+                <Link to={`/?pagina=1`}>
+                    <button className="bg-gray-100 text-gray-800 px-4 py-2 rounded shadow hover:bg-gray-400 transition">
+                        Tela Inicial
+                    </button>
+                </Link>
+
+                <Link to={`/detalhes/${id}`}>
+                    <button className="bg-gray-100 text-gray-800 px-4 py-2 rounded shadow hover:bg-gray-400 transition">
+                        Voltar
+                    </button>
+                </Link>
+            </div>
             <h1 className="text-2xl font-bold mb-4">Enviar Informações sobre a Pessoa</h1>
             {mensagem && (
-                <div className="mb-4 p-2 bg-green-200 text-green-800 rounded">
+                <div className="mb-4 p-2 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-100 rounded">
                     {mensagem}
                 </div>
             )}
@@ -113,7 +126,7 @@ export default function EnviarInformacoes() {
                         id="informacao"
                         value={informacao}
                         onChange={(e) => setInformacao(e.target.value)}
-                        className="w-full border rounded p-2"
+                        className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
                         placeholder="Descreva as informações que você tem..."
                         required
                     />
@@ -123,11 +136,12 @@ export default function EnviarInformacoes() {
                         Local onde foi visto
                     </label>
                     <input
+                        
                         type="text"
                         id="local"
                         value={local}
                         onChange={(e) => setLocal(e.target.value)}
-                        className="w-full border rounded p-2"
+                        className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
                         placeholder="Informe o local..."
                         required
                     />
@@ -141,7 +155,7 @@ export default function EnviarInformacoes() {
                         id="data"
                         value={data}
                         onChange={(e) => setData(e.target.value)}
-                        className="w-full border rounded p-2"
+                        className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
                         required
                     />
                 </div>
@@ -151,7 +165,7 @@ export default function EnviarInformacoes() {
 
                         <label
                             htmlFor="foto"
-                            className="inline-block px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700 transition"
+                            className="inline-block px-4 py-2  bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white cursor-pointer transition"
                         >
                             Selecionar Imagem
                         </label>
@@ -181,12 +195,19 @@ export default function EnviarInformacoes() {
                 </div>
                 <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white disabled:opacity-50"
                     disabled={carregando}
                 >
                     {carregando ? "Enviando..." : "Enviar"}
                 </button>
             </form>
+            {/* <div className="mt-6 text-center">
+                <Link to="/?pagina=1">
+                    <button className="bg-gray-100 text-gray-800 px-4 py-2 rounded hover:bg-gray-200 transition">
+                        Voltar para Tela Inicial
+                    </button>
+                </Link>
+            </div> */}
         </div>
     );
 }

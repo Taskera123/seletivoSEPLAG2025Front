@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { api } from "../../services/api";
+import { useFiltro } from "../../components/FiltroContext";
 import CardDesaparecido from "../../components/CardDesaparecido";
 
 interface PessoaDesaparecida {
@@ -22,7 +23,8 @@ export default function Home() {
     const [pagina, setPagina] = useState(paginaInicial);
     const url = "https://abitus-api.geia.vip";
     const [lista, setLista] = useState<PessoaDesaparecida[]>([]);
-    const [mostrarFiltros, setMostrarFiltros] = useState(false);
+    // const [mostrarFiltros, setMostrarFiltros] = useState(false);
+    const { mostrarFiltros, alternarFiltros  } = useFiltro();
     const [filtros, setFiltros] = useState({
         nome: "",
         sexo: "",
@@ -66,14 +68,14 @@ export default function Home() {
     return (
         <div className="p-4 max-w-7xl mx-auto">
             <h1 className="text-2xl font-bold mb-4">QUADRO DE PESSOAS</h1>
-            <div className="mb-4 z-50 relative">
+            {/* <div className="mb-4 z-50 relative">
                 <button
                     onClick={() => setMostrarFiltros(true)}
                     className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
                 >
                     {mostrarFiltros ? "Esconder Filtros" : "Mostrar Filtros"}
                 </button>
-            </div>
+            </div> */}
             {/* <div className="mb-6 flex flex-col sm:flex-row items-center gap-2">
                 <input
                     type="text"
@@ -113,7 +115,6 @@ export default function Home() {
                         <h2 className="text-xl font-bold mb-4">Filtros</h2>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                            {/* Campo Nome */}
                             <input
                                 type="text"
                                 placeholder="Nome"
@@ -124,7 +125,6 @@ export default function Home() {
                                 }
                             />
 
-                            {/* Campo Sexo */}
                             <select
                                 className="border rounded px-3 py-2"
                                 value={filtros.sexo}
@@ -137,7 +137,6 @@ export default function Home() {
                                 <option value="FEMININO">Feminino</option>
                             </select>
 
-                            {/* Situação */}
                             <select
                                 className="border rounded px-3 py-2"
                                 value={filtros.vivo}
@@ -150,7 +149,6 @@ export default function Home() {
                                 <option value="false">Localizado</option>
                             </select>
 
-                            {/* Idade Min */}
                             <input
                                 type="number"
                                 placeholder="Idade mínima"
@@ -161,7 +159,6 @@ export default function Home() {
                                 }
                             />
 
-                            {/* Idade Max */}
                             <input
                                 type="number"
                                 placeholder="Idade máxima"
@@ -198,7 +195,7 @@ export default function Home() {
                             </button>
 
                             <button
-                                onClick={() => setMostrarFiltros(false)}
+                                onClick={alternarFiltros}
                                 className="ml-auto text-sm text-gray-500 hover:text-red-500"
                             >
                                 Fechar Filtros ✕
@@ -224,7 +221,7 @@ export default function Home() {
             {/* Paginação */}
             <div className="flex justify-center mt-6 space-x-4">
                 <button
-                    className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-200  dark:bg-gray-800 rounded hover:bg-gray-400  dark:hover:bg-gray-400 disabled:opacity-50 dark:text-white"
                     disabled={pagina === 1}
                     onClick={() => setPagina((p) => p - 1)}
                 >
@@ -232,7 +229,7 @@ export default function Home() {
                 </button>
                 <span className="px-4 py-2">{pagina}</span>
                 <button
-                    className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                    className="px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white"
                     onClick={() => setPagina((p) => p + 1)}
                 >
                     Próxima
