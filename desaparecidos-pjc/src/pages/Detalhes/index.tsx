@@ -153,10 +153,17 @@ export default function Detalhes() {
                 </div>
             </div>
             <Link
+                to="/?pagina=1"
+                className="inline-block mt-4 mr-2 bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 transition"
+            >
+                🏠 Tela Inicial
+            </Link>
+
+            <Link
                 to={`/?pagina=${paginaAnterior}`}
                 className="inline-block mt-6 bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
             >
-                 Voltar ao quadro de pessoas
+                Voltar ao quadro de pessoas na pagina {paginaAnterior}
             </Link>
 
         </div>

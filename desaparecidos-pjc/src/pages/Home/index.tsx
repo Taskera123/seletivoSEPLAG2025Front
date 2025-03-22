@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { api } from "../../services/api";
 import CardDesaparecido from "../../components/CardDesaparecido";
 
@@ -16,9 +17,11 @@ interface PessoaDesaparecida {
 }
 
 export default function Home() {
+    const [searchParams] = useSearchParams();
+    const paginaInicial = Number(searchParams.get("pagina")) || 1;
+    const [pagina, setPagina] = useState(paginaInicial);
     const url = "https://abitus-api.geia.vip";
     const [lista, setLista] = useState<PessoaDesaparecida[]>([]);
-    const [pagina, setPagina] = useState(1);
     const [mostrarFiltros, setMostrarFiltros] = useState(false);
     const [filtros, setFiltros] = useState({
         nome: "",
@@ -210,7 +213,7 @@ export default function Home() {
                         key={d.id}
                         id={d.id}
                         nome={d.nome}
-                        foto={d.urlFoto} 
+                        foto={d.urlFoto}
                         situacao={d.vivo ? "Desaparecido" : "Localizado"}
                         dataDesaparecimento={d.ultimaOcorrencia?.dtDesaparecimento ?? ""}
                         paginaAtual={pagina}
