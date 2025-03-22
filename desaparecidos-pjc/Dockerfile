@@ -1,20 +1,11 @@
-# Etapa 1: build
-FROM node:18 AS builder
+# Etapa única: nginx com build já feito
 
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-RUN npm run build
-
-# Etapa 2: servidor nginx
 FROM nginx:alpine
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copia o build local para o nginx
+COPY dist /usr/share/nginx/html
 
-# Remove a config padrão e coloca a nossa
+# Substitui config padrão do nginx
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d
 
