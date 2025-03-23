@@ -80,7 +80,7 @@ export default function TopoInstitucional() {
 
           {isHome && (
             <button onClick={alternarFiltros} className="hover:underline text-white">
-              {mostrarFiltros ? "ESCONDER FILTROS" : "MOSTRAR FILTROS DE BUSCA"}
+              {mostrarFiltros ? "ESCONDER FILTROS" : "MOSTRAR FILTROS DETALHADOS DE BUSCA"}
             </button>
           )}
 

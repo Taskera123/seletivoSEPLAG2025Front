@@ -75,7 +75,7 @@ export default function Home() {
                     {mostrarFiltros ? "Esconder Filtros" : "Mostrar Filtros"}
                 </button>
             </div> */}
-            {/* <div className="mb-6 flex flex-col sm:flex-row items-center gap-2">
+            <div className="mb-6 flex flex-col sm:flex-row items-center gap-2">
                 <input
                     type="text"
                     placeholder="Não funciona pois na data de criação deste codigo o endpoint https://abitus-api.geia.vip/v1/pessoas/aberto/filtro ta com erro ao passar o nome "
@@ -87,7 +87,7 @@ export default function Home() {
                 />
                 <button
                     onClick={() => setPagina(1)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                    className=" bg-gray-400 dark:bg-gray-800 rounded hover:bg-gray-600 dark:hover:bg-gray-400 dark:text-white text-black px-4 py-2  transition"
                 >
                     Buscar
                 </button>
@@ -102,11 +102,11 @@ export default function Home() {
                     });
                     setPagina(1);
                   }}
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                    className="bg-gray-400 dark:bg-gray-800 rounded hover:bg-gray-600 dark:hover:bg-gray-400 dark:text-white text-black px-4 py-2 transition"
                 >
                     Limpar Filtros
                 </button>
-            </div> */}
+            </div>
             {mostrarFiltros && (
                 <div className="fixed inset-0 z-40 flex items-start justify-center pt-20 backdrop-blur-sm bg-black/30">
                     <div className="bg-white p-6 rounded shadow-lg w-full max-w-4xl relative z-50">
