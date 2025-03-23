@@ -1,6 +1,7 @@
 import { useParams, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { buscarDetalhesPessoa, buscarInformacoesDesaparecido } from "../../services/api";
 import ImagemComFallback from "../../components/ImagemComFallBack";
 
 
@@ -49,22 +50,23 @@ export default function Detalhes() {
 
 
     useEffect(() => {
-        if (id) {
-            api.get(`/v1/pessoas/${id}`)
-                .then((res) => {
-                    if (!res.data || !res.data.id) {
-                        setErro("Pessoa não encontrada.");
-                    } else {
-                        setDados(res.data);
-                        setErro(null);
-                    }
-                })
-                .catch((err) => {
-                    console.error("Erro ao buscar pessoa:", err);
-                    setErro("Ocorreu um erro ao carregar os dados.");
-                });
-        }
-    }, [id]);
+        const carregarDetalhes = async () => {
+          try {
+            const res = await buscarDetalhesPessoa(id!);
+            if (!res.data || !res.data.id) {
+              setErro("Pessoa não encontrada.");
+            } else {
+              setDados(res.data);
+              setErro(null);
+            }
+          } catch (err) {
+            console.error("Erro ao buscar pessoa:", err);
+            setErro("Ocorreu um erro ao carregar os dados.");
+          }
+        };
+    
+        if (id) carregarDetalhes();
+      }, [id]);
 
 
     if (!dados) {
@@ -99,17 +101,13 @@ export default function Detalhes() {
 
     const carregarInformacoesEnviadas = async () => {
         try {
-            const res = await api.get(`/v1/ocorrencias/informacoes-desaparecido`, {
-                params: { ocorrenciaId: dados?.ultimaOcorrencia.ocoId },
-            });
-            setInformacoes(res.data);
-            setMostrarInfos(true);
+          const res = await buscarInformacoesDesaparecido(dados?.ultimaOcorrencia.ocoId!);
+          setInformacoes(res.data);
+          setMostrarInfos(true);
         } catch (err) {
-            console.error("Erro ao carregar informações enviadas:", err);
+          console.error("Erro ao carregar informações enviadas:", err);
         }
     };
-
-
 
     const {
         nome,

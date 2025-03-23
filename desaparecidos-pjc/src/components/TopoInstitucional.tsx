@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import logo from "../assets/logo-pjc.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useFiltro } from "./FiltroContext";
-import { api } from "../services/api";
+import { buscarEstatisticas } from "../services/api";
 
 export default function TopoInstitucional() {
     const location = useLocation();
@@ -33,13 +33,13 @@ export default function TopoInstitucional() {
     useEffect(() => {
         const carregarEstatisticas = async () => {
             try {
-                const res = await api.get(`${url}/v1/pessoas/aberto/estatistico`);
+                const res = await buscarEstatisticas(); 
                 setEstatisticas(res.data);
             } catch (err) {
                 console.error("Erro ao carregar estatísticas:", err);
             }
         };
-
+    
         carregarEstatisticas();
     }, []);
 
@@ -65,10 +65,10 @@ export default function TopoInstitucional() {
 
             <div className="w-full border-b border-gray-700 bg-gray-900">
                 <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-28">
                         <img src={logo} alt="PJC" className="h-16" />
                         <div>
-                            <h1 className="text-xl font-bold leading-tight text-right">
+                            <h1 className="text-xl font-bold leading-tight text-center">
                                 QUADRO DE PESSOAS DESAPARECIDAS - PJC-MT
                             </h1>
                         </div>

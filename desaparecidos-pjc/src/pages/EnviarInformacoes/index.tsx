@@ -1,9 +1,8 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
+import { enviarInformacao, buscarDetalhesPessoa } from "../../services/api";
 
 export default function EnviarInformacoes() {
-    const url = "https://abitus-api.geia.vip";
     const { id } = useParams();
     const [informacao, setInformacao] = useState("");
     const [local, setLocal] = useState("");
@@ -20,10 +19,9 @@ export default function EnviarInformacoes() {
 
     useEffect(() => {
         if (id) {
-            axios
-                .get(`${url}/v1/pessoas/${id}`)
+            buscarDetalhesPessoa(id)
                 .then((res) => {
-                    console.log("Pessoa retornada:", res.data);
+                    // console.log("Pessoa retornada:", res.data);
                     setOcoId(res.data?.ultimaOcorrencia?.ocoId ?? null);
                 })
                 .catch((err) => {
@@ -49,7 +47,7 @@ export default function EnviarInformacoes() {
             const reader = new FileReader();
             reader.onloadend = () => {
                 if (reader.result) {
-                    const base64 = (reader.result as string).split(",")[1]; // remove o prefixo
+                    const base64 = (reader.result as string).split(",")[1]; 
                     setAnexosBase64([base64]);
                 }
             };
@@ -74,10 +72,10 @@ export default function EnviarInformacoes() {
         }
 
         const formData = new FormData();
-        formData.append("ocoId", ocoId.toString());
         formData.append("informacao", informacao);
         formData.append("data", data);
-        formData.append("id", id!.toString());
+        formData.append("ocoId", ocoId.toString());
+        // formData.append("id", id!.toString());
 
         // anexos base64
         anexosBase64.forEach((base64, i) => {
@@ -85,7 +83,7 @@ export default function EnviarInformacoes() {
         });
 
         try {
-            await axios.post(`${url}/v1/ocorrencias/informacoes-desaparecido`, formData);
+            await enviarInformacao(formData);
             setMensagem("Informações enviadas com sucesso!");
         } catch (error) {
             console.error(error);
@@ -99,8 +97,13 @@ export default function EnviarInformacoes() {
     return (
         <div className="max-w-2xl mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4  text-gray-900 dark:text-white ">Enviar Informações sobre a Pessoa</h1>
-            {mensagem && (
+            {mensagem == "Informações enviadas com sucesso!"  && (
                 <div className="mb-4 p-2 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-100 rounded">
+                    {mensagem}
+                </div>
+            )}
+            {mensagem == "Erro ao enviar as informações."  && (
+                <div className="mb-4 p-2 bg-red-200 dark:bg-red-700 text-red-800 dark:text-red-100 rounded">
                     {mensagem}
                 </div>
             )}

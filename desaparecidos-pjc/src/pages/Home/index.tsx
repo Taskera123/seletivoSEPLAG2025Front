@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { api } from "../../services/api";
 import { useFiltro } from "../../components/FiltroContext";
 import CardDesaparecido from "../../components/CardDesaparecido";
+import { buscarPessoasDesaparecidas} from "../../services/api";
+
 
 interface PessoaDesaparecida {
     id: number;
@@ -24,7 +25,6 @@ export default function Home() {
     const [totalPaginas, setTotalPaginas] = useState(0);
     const [totalElementos, setTotalElementos] = useState(0);
     const itensPorPagina = 10;
-    const url = "https://abitus-api.geia.vip";
     const [lista, setLista] = useState<PessoaDesaparecida[]>([]);
     const { mostrarFiltros, alternarFiltros } = useFiltro();
     const [filtros, setFiltros] = useState({
@@ -38,14 +38,7 @@ export default function Home() {
     useEffect(() => {
         const carregarDesaparecidos = async () => {
             try {
-                const res = await api.get(`${url}/v1/pessoas/aberto/filtro`, {
-                    params: {
-                        pagina: numeroPagina,
-                        quantidade: itensPorPagina,
-                        ...filtros,
-                    },
-                });
-
+                const res = await buscarPessoasDesaparecidas(numeroPagina, filtros);
                 setLista(res.data.content || []);
                 setTotalPaginas(res.data.totalPages || 0);
                 setTotalElementos(res.data.totalElements || 0);
@@ -72,7 +65,7 @@ export default function Home() {
                 />
                 <button
                     onClick={() => setNumeroPagina(0)}
-                    className="bg-gray-400 dark:bg-gray-800 rounded hover:bg-gray-600 dark:hover:bg-gray-400 dark:text-white text-black px-4 py-2 transition"
+                    className="bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 disabled:opacity-50 dark:text-white px-4 py-2 transition"
                 >
                     Buscar
                 </button>
@@ -81,7 +74,7 @@ export default function Home() {
                         setFiltros({ nome: "", sexo: "", vivo: "", idadeMin: "", idadeMax: "" });
                         setNumeroPagina(0);
                     }}
-                    className="bg-gray-400 dark:bg-gray-800 rounded hover:bg-gray-600 dark:hover:bg-gray-400 dark:text-white text-black px-4 py-2 transition"
+                    className="bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 disabled:opacity-50 dark:text-white px-4 py-2 transition"
                 >
                     Limpar Filtros
                 </button>
@@ -89,20 +82,20 @@ export default function Home() {
 
             {mostrarFiltros && (
                 <div className="fixed inset-0 z-40 flex items-start justify-center pt-20 backdrop-blur-sm bg-black/30">
-                    <div className="bg-white p-6 rounded shadow-lg w-full max-w-4xl relative z-50">
+                    <div className="bg-white dark:bg-gray-900 rounded shadow-lg w-full max-w-2xl p-6 relative">
                         <h2 className="text-xl font-bold mb-4">Filtros</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                             <input
                                 type="text"
                                 placeholder="Nome"
-                                className="border rounded px-3 py-2 col-span-2"
+                                className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
                                 value={filtros.nome}
                                 onChange={(e) =>
                                     setFiltros((prev) => ({ ...prev, nome: e.target.value }))
                                 }
                             />
                             <select
-                                className="border rounded px-3 py-2"
+                                className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
                                 value={filtros.sexo}
                                 onChange={(e) =>
                                     setFiltros((prev) => ({ ...prev, sexo: e.target.value }))
@@ -113,7 +106,7 @@ export default function Home() {
                                 <option value="FEMININO">Feminino</option>
                             </select>
                             <select
-                                className="border rounded px-3 py-2"
+                                className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
                                 value={filtros.vivo}
                                 onChange={(e) =>
                                     setFiltros((prev) => ({ ...prev, vivo: e.target.value }))
@@ -126,7 +119,7 @@ export default function Home() {
                             <input
                                 type="number"
                                 placeholder="Idade mínima"
-                                className="border rounded px-3 py-2"
+                                className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
                                 value={filtros.idadeMin}
                                 onChange={(e) =>
                                     setFiltros((prev) => ({ ...prev, idadeMin: e.target.value }))
@@ -135,7 +128,7 @@ export default function Home() {
                             <input
                                 type="number"
                                 placeholder="Idade máxima"
-                                className="border rounded px-3 py-2"
+                                className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
                                 value={filtros.idadeMax}
                                 onChange={(e) =>
                                     setFiltros((prev) => ({ ...prev, idadeMax: e.target.value }))
@@ -145,7 +138,7 @@ export default function Home() {
                         <div className="mt-6 flex gap-2 flex-wrap">
                             <button
                                 onClick={() => setNumeroPagina(0)}
-                                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                className="bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 disabled:opacity-50 dark:text-white px-4 py-2 transition"
                             >
                                 Buscar
                             </button>
@@ -154,7 +147,7 @@ export default function Home() {
                                     setFiltros({ nome: "", sexo: "", vivo: "", idadeMin: "", idadeMax: "" });
                                     setNumeroPagina(0);
                                 }}
-                                className="px-4 py-2 border rounded hover:bg-gray-100"
+                                className="bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 disabled:opacity-50 dark:text-white px-4 py-2 transition"
                             >
                                 Limpar Filtros
                             </button>
