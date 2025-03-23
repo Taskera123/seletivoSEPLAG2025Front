@@ -53,7 +53,7 @@ export default function TopoInstitucional() {
             <img src={logo} alt="PJC" className="h-16" />
             <div>
               <h1 className="text-xl font-bold leading-tight">
-                POLÍCIA JUDICIÁRIA CIVIL
+                POLÍCIA JUDICIÁRIA CIVIL 
               </h1>
               <p className="text-sm">ESTADO DE MATO GROSSO</p>
             </div>
