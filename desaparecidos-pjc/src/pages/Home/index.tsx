@@ -66,7 +66,7 @@ export default function Home() {
 
     return (
         <div className="p-4 max-w-7xl mx-auto">
-            <h1 className="text-2xl font-bold mb-4 ">QUADRO DE PESSOAS DESAPARECIDAS</h1>
+            {/* <h1 className="text-2xl font-bold mb-4 ">QUADRO DE PESSOAS DESAPARECIDAS</h1> */}
             {/* <div className="mb-4 z-50 relative">
                 <button
                     onClick={() => setMostrarFiltros(true)}

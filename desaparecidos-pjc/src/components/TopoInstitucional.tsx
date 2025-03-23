@@ -52,10 +52,9 @@ export default function TopoInstitucional() {
           <div className="flex items-center gap-4">
             <img src={logo} alt="PJC" className="h-16" />
             <div>
-              <h1 className="text-xl font-bold leading-tight">
-                POLÍCIA JUDICIÁRIA CIVIL 
+              <h1 className="text-xl font-bold leading-tight text-right">
+              QUADRO DE PESSOAS DESAPARECIDAS - PJC-MT 
               </h1>
-              <p className="text-sm">ESTADO DE MATO GROSSO</p>
             </div>
           </div>
           <div className="text-right mt-4 md:mt-0">

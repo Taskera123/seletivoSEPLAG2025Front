@@ -122,7 +122,7 @@ export default function Detalhes() {
 
     return (
         <div className="max-w-4xl mx-auto p-8">
-            <h1 className="text-2xl font-bold mb-5 gap-4 m-5">Detalhes de {nome}</h1>
+            <h1 className="text-2xl font-bold mb-5 gap-4 m-5  text-gray-900 dark:text-white">Detalhes de {nome}</h1>
             <div className="flex flex-col md:flex-row gap-6">
                 <ImagemComFallback
                     src={urlFoto}
@@ -131,12 +131,12 @@ export default function Detalhes() {
                     className="w-full md:w-64 h-[300px] object-cover rounded"
                 />
 
-                <div className="flex-1 space-y-2 text-left">
+                <div className="flex-1 space-y-2 text-left  text-gray-900 dark:text-white">
                     <p><strong>Idade:</strong> {idade}</p>
                     <p><strong>Sexo:</strong> {sexo}</p>
                     <p>
                         <strong>Situação:</strong>{" "}
-                        <span className={`px-2 py-1 rounded text-white ${vivo ? "bg-red-500" : "bg-green-500"}`}>
+                        <span className={`px-2 py-1 rounded text-white  ${vivo ? "bg-red-500" : "bg-green-500"}`}>
                             {vivo ? "Desaparecido" : "Localizado"}
                         </span>
                     </p>
@@ -198,10 +198,13 @@ export default function Detalhes() {
 
             <div className="mt-6">
                 {vivo ? (
-                    <Link to={`/enviar-informacoes/${id}`}>
-                        <button className="w-48 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white px-4 py-2 rounded transition w-full md:w-auto">
+                   <Link
+                   to={`/enviar-informacoes/${id}`}
+                   state={{ backgroundLocation: location }}
+                 >
+                        {/* <button className="w-48 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white px-4 py-2 rounded transition w-full md:w-auto">
                             Enviar novas Informações
-                        </button>
+                        </button> */}
                     </Link>
                 ) : (
                     <div className="bg-green-100 text-green-800 px-4 py-2 rounded text-center shadow w-full md:w-auto">

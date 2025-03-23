@@ -103,7 +103,7 @@ export default function EnviarInformacoes() {
                     </button>
                 </Link>
             </div> */}
-            <h1 className="text-2xl font-bold mb-4">Enviar Informações sobre a Pessoa</h1>
+            <h1 className="text-2xl font-bold mb-4  text-gray-900 dark:text-white ">Enviar Informações sobre a Pessoa</h1>
             {mensagem && (
                 <div className="mb-4 p-2 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-100 rounded">
                     {mensagem}
@@ -116,7 +116,7 @@ export default function EnviarInformacoes() {
             )}
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block font-semibold mb-1" htmlFor="informacao">
+                    <label className="block font-semibold mb-1  text-gray-900 dark:text-white" htmlFor="informacao">
                         Informação
                     </label>
                     <textarea
@@ -129,7 +129,7 @@ export default function EnviarInformacoes() {
                     />
                 </div>
                 <div>
-                    <label className="block font-semibold mb-1" htmlFor="local">
+                    <label className="block font-semibold mb-1  text-gray-900 dark:text-white" htmlFor="local">
                         Local onde foi visto
                     </label>
                     <input
@@ -144,7 +144,7 @@ export default function EnviarInformacoes() {
                     />
                 </div>
                 <div>
-                    <label className="block font-semibold mb-1" htmlFor="data">
+                    <label className="block font-semibold mb-1  text-gray-900 dark:text-white" htmlFor="data">
                         Data da Ocorrência
                     </label>
                     <input
@@ -158,7 +158,7 @@ export default function EnviarInformacoes() {
                 </div>
                 <div>
                     <div>
-                        <label className="block font-semibold mb-1">Enviar Fotografia (opcional)</label>
+                        <label className="block font-semibold mb-1  text-gray-900 dark:text-white">Enviar Fotografia (opcional)</label>
 
                         <label
                             htmlFor="foto"
