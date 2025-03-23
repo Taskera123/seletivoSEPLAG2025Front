@@ -42,7 +42,7 @@ export default function CardDesaparecido({
           </div>
 
           <span
-            className={`inline-block mt-4 px-4 py-2 text-xs font-semibold rounded-full ${
+            className={`inline-block mt-5 px-5 py-3 text-xl font-semibold rounded-full ${
               situacao === "Desaparecido"
                 ? "bg-red-200 text-red-800 dark:bg-red-800 dark:text-white"
                 : "bg-green-200 text-green-800 dark:bg-green-800 dark:text-white"

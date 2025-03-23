@@ -167,25 +167,33 @@ export default function Detalhes() {
             {dados?.ultimaOcorrencia?.ocoId && (
                 <div className="mt-6">
                     <button
-                        onClick={carregarInformacoesEnviadas}
-                        className= "w-48 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white px-4 py-2 rounded transition w-full md:w-auto"
+                        onClick={() => {
+                            if (mostrarInfos) {
+                                setMostrarInfos(false); 
+                            } else {
+                                carregarInformacoesEnviadas(); 
+                            }
+                        }}
+                        className="w-48 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white px-4 py-2 rounded transition w-full md:w-auto"
                     >
-                        {mostrarInfos ? "Atualizar" : "Mais Informações"}
+                        {mostrarInfos ? "Ocultar Informações" : "Mais Informações"}
                     </button>
 
                     {mostrarInfos && (
-                        <div className="mt-4 bg-gray-100 dark:bg-gray-800 p-4 rounded shadow space-y-4">
+                        <div className="mt-4 bg-gray-100 dark:bg-gray-800 p-4 rounded shadow space-y-4 max-h-64 overflow-y-auto">
                             <h2 className="text-lg font-bold text-gray-800 dark:text-white mb-2">
                                 Informações previamente enviadas
                             </h2>
 
                             {informacoes.length > 0 ? (
                                 informacoes.map((info) => (
-                                    <div key={info.id} className="border-b border-gray-300 dark:border-gray-600 pb-2 text-left ">
+                                    <div key={info.id} className="border-b border-gray-300 dark:border-gray-600 pb-2 text-left">
                                         <p className="text-sm text-gray-700 dark:text-gray-300">
                                             <strong>Data:</strong> {new Date(info.data).toLocaleDateString("pt-BR")}
                                         </p>
-                                        <p className="text-gray-900 dark:text-white"> <strong>Informação: </strong>{info.informacao}</p>
+                                        <p className="text-gray-900 dark:text-white">
+                                            <strong>Informação: </strong>{info.informacao}
+                                        </p>
                                     </div>
                                 ))
                             ) : (
@@ -193,15 +201,16 @@ export default function Detalhes() {
                             )}
                         </div>
                     )}
+
                 </div>
             )}
 
             <div className="mt-6">
                 {vivo ? (
-                   <Link
-                   to={`/enviar-informacoes/${id}`}
-                   state={{ backgroundLocation: location }}
-                 >
+                    <Link
+                        to={`/enviar-informacoes/${id}`}
+                        state={{ backgroundLocation: location }}
+                    >
                         {/* <button className="w-48 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white px-4 py-2 rounded transition w-full md:w-auto">
                             Enviar novas Informações
                         </button> */}

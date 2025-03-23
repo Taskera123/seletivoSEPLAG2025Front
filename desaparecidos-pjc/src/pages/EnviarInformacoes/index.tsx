@@ -14,6 +14,8 @@ export default function EnviarInformacoes() {
     const [anexosBase64, setAnexosBase64] = useState<string[]>([]);
     const [ocoId, setOcoId] = useState<number | null>(null);
     const [carregando, setCarregando] = useState(false);
+    const [formValido, setFormValido] = useState(false);
+
 
 
     useEffect(() => {
@@ -30,7 +32,14 @@ export default function EnviarInformacoes() {
         }
     }, [id]);
 
-    // Função para lidar com o upload da foto
+    useEffect(() => {
+        const infoValida = informacao.trim().length >= 10;
+        const localValido = local.trim().length > 0;
+        const dataValida = data.trim().length > 0;
+
+        setFormValido(infoValida && localValido && dataValida);
+    }, [informacao, local, data]);
+
     const handleFotoChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
@@ -48,7 +57,6 @@ export default function EnviarInformacoes() {
         }
     };
 
-    // Envio do formulário
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setCarregando(true);
@@ -90,19 +98,6 @@ export default function EnviarInformacoes() {
 
     return (
         <div className="max-w-2xl mx-auto p-4">
-            {/* <div className="fixed top-4 left-4 z-50 flex flex-row gap-2">
-                <Link to={`/?pagina=1`}>
-                    <button className="bg-gray-100 text-gray-800 px-4 py-2 rounded shadow hover:bg-gray-400 transition">
-                        Tela Inicial
-                    </button>
-                </Link>
-
-                <Link to={`/detalhes/${id}`}>
-                    <button className="bg-gray-100 text-gray-800 px-4 py-2 rounded shadow hover:bg-gray-400 transition">
-                        Voltar
-                    </button>
-                </Link>
-            </div> */}
             <h1 className="text-2xl font-bold mb-4  text-gray-900 dark:text-white ">Enviar Informações sobre a Pessoa</h1>
             {mensagem && (
                 <div className="mb-4 p-2 bg-green-200 dark:bg-green-700 text-green-800 dark:text-green-100 rounded">
@@ -133,7 +128,7 @@ export default function EnviarInformacoes() {
                         Local onde foi visto
                     </label>
                     <input
-                        
+
                         type="text"
                         id="local"
                         value={local}
@@ -176,35 +171,30 @@ export default function EnviarInformacoes() {
                         />
 
                         {preview && (
-                            <div className="mt-4">
-                                <h2 className="font-semibold mb-1 text-center">Pré-visualização:</h2>
-                                <div className="flex justify-center">
-                                    <img
-                                        src={preview}
-                                        alt="Preview da foto"
-                                        className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg border rounded shadow-md"
-                                    />
-                                </div>
+                            <div className="mt-4 flex flex-col items-center">
+                                <h2 className="font-semibold mb-2">Pré-visualização:</h2>
+                                <img
+                                    src={preview}
+                                    alt="Preview da foto"
+                                    className="w-48 h-48 object-cover border rounded shadow"
+                                />
                             </div>
                         )}
+
 
                     </div>
                 </div>
                 <button
                     type="submit"
-                    className="px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white disabled:opacity-50"
-                    disabled={carregando}
+                    disabled={!formValido}
+                    className={`px-4 py-2 rounded transition w-full md:w-auto ${formValido
+                            ? "px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white disabled:opacity-50"
+                            : "bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-800 rounded"
+                        }`}
                 >
-                    {carregando ? "Enviando..." : "Enviar"}
+                    Enviar
                 </button>
             </form>
-            {/* <div className="mt-6 text-center">
-                <Link to="/?pagina=1">
-                    <button className="bg-gray-100 text-gray-800 px-4 py-2 rounded hover:bg-gray-200 transition">
-                        Voltar para Tela Inicial
-                    </button>
-                </Link>
-            </div> */}
         </div>
     );
 }
