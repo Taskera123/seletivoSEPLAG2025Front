@@ -1,5 +1,8 @@
+import { useEffect } from "react";
+
 import { Link, useLocation } from "react-router-dom";
 import ImagemComFallback from "./ImagemComFallBack";
+import { buscarDetalhesPessoa } from "../services/api"
 
 interface Props {
   id: number;
@@ -18,7 +21,19 @@ export default function CardDesaparecido({
   dataDesaparecimento,
   paginaAtual,
 }: Props) {
-  const location = useLocation(); // necessário para o modal funcionar
+  const location = useLocation(); 
+
+  useEffect(() => {
+    if (id) {
+        buscarDetalhesPessoa(id)
+            .then((res) => {
+                // setOcoId(res.data?.ultimaOcorrencia?.ocoId ?? null);
+            })
+            .catch((err) => {
+                console.error("Erro ao buscar dados:", err);
+            });
+    }
+}, [id]);
 
   return (
     <Link
@@ -43,12 +58,12 @@ export default function CardDesaparecido({
 
           <span
             className={`inline-block mt-5 px-5 py-3 text-xl font-semibold rounded-full ${
-              situacao === "Desaparecido"
+              situacao === "DESAPARECIDO"
                 ? "bg-red-200 text-red-800 dark:bg-red-800 dark:text-white"
                 : "bg-green-200 text-green-800 dark:bg-green-800 dark:text-white"
             }`}
           >
-            {situacao}
+            {situacao} 
           </span>
         </div>
       </div>

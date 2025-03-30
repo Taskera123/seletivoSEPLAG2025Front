@@ -6,7 +6,7 @@ interface ImagemComFallbackProps {
   alt: string;
   className?: string;
   skeletonClassName?: string;
-  destaqueStatus?: "Desaparecido" | "Localizado";
+  destaqueStatus?: "Morto" | "Vivo";
 }
 
 export default function ImagemComFallback({
@@ -29,12 +29,8 @@ export default function ImagemComFallback({
   }, [src]);
 
   const borderColor =
-    destaqueStatus === "Desaparecido"
-      ? "border-red-400"
-      : destaqueStatus === "Localizado"
-        ? "border-green-400"
-        : "border-gray-200";
-
+    // destaqueStatus === "Morto" ? "border-red-400" : destaqueStatus === "Vivo" ? "border-green-400" : "border-gray-200";
+    destaqueStatus === "Morto" ? "border-red-400" : "border-green-400";
   return (
     <div className={`relative ${borderColor} border-4 rounded`}>
       {carregando && <div className={skeletonClassName} />}

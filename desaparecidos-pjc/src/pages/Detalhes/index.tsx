@@ -125,7 +125,7 @@ export default function Detalhes() {
                 <ImagemComFallback
                     src={urlFoto}
                     alt={nome}
-                    destaqueStatus={vivo ? "Desaparecido" : "Localizado"}
+                    destaqueStatus={vivo == true ? "Vivo" : "Morto"}
                     className="w-full md:w-64 h-[300px] object-cover rounded"
                 />
 
@@ -134,8 +134,8 @@ export default function Detalhes() {
                     <p><strong>Sexo:</strong> {sexo}</p>
                     <p>
                         <strong>Situação:</strong>{" "}
-                        <span className={`px-2 py-1 rounded text-white  ${vivo ? "bg-red-500" : "bg-green-500"}`}>
-                            {vivo ? "Desaparecido" : "Localizado"}
+                        <span className={`px-2 py-1 rounded text-white  ${vivo ? "bg-green-500" : "bg-red-500"}`}>
+                            {vivo ? "Vivo" : "Morto"}
                         </span>
                     </p>
                     <p><strong>Data do desaparecimento:</strong> {new Date(ultimaOcorrencia.dtDesaparecimento).toLocaleDateString("pt-BR")}</p>

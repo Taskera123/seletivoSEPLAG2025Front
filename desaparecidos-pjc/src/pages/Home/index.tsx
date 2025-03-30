@@ -15,6 +15,7 @@ interface PessoaDesaparecida {
     ultimaOcorrencia: {
         dtDesaparecimento: string;
         localDesaparecimentoConcat: string;
+        dataLocalizacao: string,
     };
 }
 
@@ -30,9 +31,9 @@ export default function Home() {
     const [filtros, setFiltros] = useState({
         nome: "",
         sexo: "",
-        vivo: "",
-        idadeMin: "",
-        idadeMax: "",
+        faixaIdadeInicial: 0,
+        faixaIdadeFinal: 0,
+        status:"DESAPARECIDO"
     });
 
     useEffect(() => {
@@ -48,12 +49,27 @@ export default function Home() {
         };
 
         carregarDesaparecidos();
-    }, [numeroPagina, filtros]);
+    }, [numeroPagina, JSON.stringify(filtros)]);
+
+    useEffect(() => {
+        const carregarDesaparecidos = async () => {
+            try {
+                const res = await buscarPessoasDesaparecidas(0, filtros);
+                setLista(res.data.content || []);
+                setTotalPaginas(res.data.totalPages || 0);
+                setTotalElementos(res.data.totalElements || 0);
+            } catch (err) {
+                console.error("Erro ao carregar desaparecidos:", err);
+            }
+        };
+        setNumeroPagina(0)
+        carregarDesaparecidos();
+    }, [JSON.stringify(filtros)]);
 
     return (
         <div className="p-4 max-w-7xl mx-auto">
 
-            <div className="mb-6 flex flex-col sm:flex-row items-center gap-2">
+            {/* <div className="mb-6 flex flex-col sm:flex-row items-center gap-2">
                 <input
                     type="text"
                     placeholder="Nome"
@@ -71,14 +87,14 @@ export default function Home() {
                 </button>
                 <button
                     onClick={() => {
-                        setFiltros({ nome: "", sexo: "", vivo: "", idadeMin: "", idadeMax: "" });
+                        setFiltros({ nome: "", sexo: "",faixaIdadeInicial: 0, faixaIdadeFinal: 0,status:"" });
                         setNumeroPagina(0);
                     }}
                     className="bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 disabled:opacity-50 dark:text-white px-4 py-2 transition"
                 >
                     Limpar Filtros
                 </button>
-            </div>
+            </div> */}
 
             {mostrarFiltros && (
                 <div className="fixed inset-0 z-40 flex items-start justify-center pt-20 backdrop-blur-sm bg-black/30">
@@ -105,22 +121,11 @@ export default function Home() {
                                 <option value="MASCULINO">Masculino</option>
                                 <option value="FEMININO">Feminino</option>
                             </select>
-                            <select
-                                className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
-                                value={filtros.vivo}
-                                onChange={(e) =>
-                                    setFiltros((prev) => ({ ...prev, vivo: e.target.value }))
-                                }
-                            >
-                                <option value="">Situação</option>
-                                <option value="true">Desaparecido</option>
-                                <option value="false">Localizado</option>
-                            </select>
                             <input
                                 type="number"
                                 placeholder="Idade mínima"
                                 className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
-                                value={filtros.idadeMin}
+                                value={filtros.faixaIdadeInicial}
                                 onChange={(e) =>
                                     setFiltros((prev) => ({ ...prev, idadeMin: e.target.value }))
                                 }
@@ -129,22 +134,33 @@ export default function Home() {
                                 type="number"
                                 placeholder="Idade máxima"
                                 className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
-                                value={filtros.idadeMax}
+                                value={filtros.faixaIdadeFinal}
                                 onChange={(e) =>
                                     setFiltros((prev) => ({ ...prev, idadeMax: e.target.value }))
                                 }
                             />
+                             <select
+                                className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
+                                value={filtros.status}
+                                onChange={(e) =>
+                                    setFiltros((prev) => ({ ...prev, status: e.target.value }))
+                                }
+                            >
+                                {/* <option value="">Status</option> */}
+                                <option value="LOCALIZADO">LOCALIZADO</option>
+                                <option value="DESAPARECIDO">DESAPARECIDO</option>
+                            </select>
                         </div>
                         <div className="mt-6 flex gap-2 flex-wrap">
-                            <button
+                            {/* <button
                                 onClick={() => setNumeroPagina(0)}
                                 className="bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 disabled:opacity-50 dark:text-white px-4 py-2 transition"
                             >
                                 Buscar
-                            </button>
+                            </button> */}
                             <button
                                 onClick={() => {
-                                    setFiltros({ nome: "", sexo: "", vivo: "", idadeMin: "", idadeMax: "" });
+                                    setFiltros({ nome: "", sexo: "",faixaIdadeInicial: 0,faixaIdadeFinal: 0,status:"DESAPARECIDO" });
                                     setNumeroPagina(0);
                                 }}
                                 className="bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 disabled:opacity-50 dark:text-white px-4 py-2 transition"
@@ -172,7 +188,7 @@ export default function Home() {
                             id={d.id}
                             nome={d.nome}
                             foto={d.urlFoto}
-                            situacao={d.vivo ? "Desaparecido" : "Localizado"}
+                            situacao={filtros.status}
                             dataDesaparecimento={d.ultimaOcorrencia?.dtDesaparecimento ?? ""}
                             paginaAtual={numeroPagina + 1}
                         />
@@ -180,7 +196,6 @@ export default function Home() {
                 </div>
             )}
 
-            {/* Paginação */}
             <div className="mt-6 flex flex-col items-center gap-2">
                 <div className="flex justify-center space-x-4">
                     <button

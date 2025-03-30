@@ -175,7 +175,7 @@ export default function EnviarInformacoes() {
 
                         {preview && (
                             <div className="mt-4 flex flex-col items-center">
-                                <h2 className="font-semibold mb-2">Pré-visualização:</h2>
+                                <h2 className="font-semibold text-gray-900 dark:text-white mb-2">Pré-visualização:</h2>
                                 <img
                                     src={preview}
                                     alt="Preview da foto"
