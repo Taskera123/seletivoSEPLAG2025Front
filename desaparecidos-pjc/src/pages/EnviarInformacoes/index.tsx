@@ -5,6 +5,7 @@ import { enviarInformacao, buscarDetalhesPessoa } from "../../services/api";
 export default function EnviarInformacoes() {
     const { id } = useParams();
     const [informacao, setInformacao] = useState("");
+    const [descricao , setDescricao ] = useState("");
     const [local, setLocal] = useState("");
     const [data, setData] = useState("");
     const [foto, setFoto] = useState<File | null>(null);
@@ -32,11 +33,12 @@ export default function EnviarInformacoes() {
 
     useEffect(() => {
         const infoValida = informacao.trim().length >= 10;
-        const localValido = local.trim().length > 0;
+        const descValida = descricao .trim().length >= 10;
+        // const localValido = local.trim().length > 0;
         const dataValida = data.trim().length > 0;
 
-        setFormValido(infoValida && localValido && dataValida);
-    }, [informacao, local, data]);
+        setFormValido(infoValida && descValida && dataValida);
+    }, [informacao, descricao, data]);
 
     const handleFotoChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -65,7 +67,7 @@ export default function EnviarInformacoes() {
             return;
         }
 
-        if (informacao.trim().length < 10 || !local || !data) {
+        if (informacao.trim().length < 10 || !descricao || !data) {
             setMensagem("Preencha todos os campos obrigatórios corretamente.");
             setCarregando(false);
             return;
@@ -73,6 +75,7 @@ export default function EnviarInformacoes() {
 
         const formData = new FormData();
         formData.append("informacao", informacao);
+        formData.append("descricao", descricao );
         formData.append("data", data);
         formData.append("ocoId", ocoId.toString());
         // formData.append("id", id!.toString());
@@ -127,17 +130,17 @@ export default function EnviarInformacoes() {
                     />
                 </div>
                 <div>
-                    <label className="block font-semibold mb-1  text-gray-900 dark:text-white" htmlFor="local">
-                        Local onde foi visto
+                    <label className="block font-semibold mb-1  text-gray-900 dark:text-white" htmlFor="descricao">
+                            Descrição do Anexo
                     </label>
                     <input
 
                         type="text"
-                        id="local"
-                        value={local}
-                        onChange={(e) => setLocal(e.target.value)}
+                        id="descricao"
+                        value={descricao}
+                        onChange={(e) => setDescricao(e.target.value)}
                         className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
-                        placeholder="Informe o local..."
+                        placeholder="Informe a descrição..."
                         required
                     />
                 </div>
@@ -189,11 +192,12 @@ export default function EnviarInformacoes() {
                 </div>
                 <button
                     type="submit"
-                    disabled={!formValido}
-                    className={`px-4 py-2 rounded transition w-full md:w-auto ${formValido
-                            ? "px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white disabled:opacity-50"
-                            : "bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-800 rounded"
-                        }`}
+                    // disabled={!formValido}
+                    // className={`px-4 py-2 rounded transition w-full md:w-auto ${formValido
+                    //         ? "px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded hover:bg-gray-400 dark:hover:bg-gray-400 dark:text-white disabled:opacity-50"
+                    //         : "bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-800 rounded"
+                    //     }`}
+                    className="  dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded p-2"
                 >
                     Enviar
                 </button>
