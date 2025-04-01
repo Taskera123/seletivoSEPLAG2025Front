@@ -1,11 +1,11 @@
-# Projeto SPA - Pessoas Desaparecidas
+# Projeto para o seletivo SEPLAG fornt end 2025 pleno
 
 Este repositório contém uma aplicação **Single Page Application (SPA)** desenvolvida para o teste prático de Desenvolvedor Front-end, consumindo a API pública da Polícia Judiciária Civil de Mato Grosso.
 
 ## 👤 Informações do Aluno
 
-- **Nome completo:** [Seu Nome Completo Aqui]  
-- **Número da inscrição:** [Seu Número de Inscrição Aqui]
+- **Nome completo:** Lucas Henrique Tasca de Araujo  
+- **Número da inscrição:** 8313
 
 ## 🚀 Como Executar o Projeto
 
