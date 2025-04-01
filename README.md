@@ -29,17 +29,10 @@ docker run -p 5173:80 desaparecidos-pjc
 http://localhost:5173
 ```
 
-## 📡 API Utilizada
-
-A aplicação consome dados da seguinte API pública:
-
-```
-GET https://abitus-api.geia.vip/v1/pessoas/aberto/filtro
-```
 
 ### ❗ Observações Importantes
 
-- O objeto de resposta da API **não possui uma informação explícita** que indique se uma pessoa está **desaparecida** ou **localizada**.
+- O objeto de resposta da API  da requisição get https://abitus-api.geia.vip/v1/pessoas/aberto/filtro **não possui uma informação explícita** que indique se uma pessoa está **desaparecida** ou **localizada**, apenas se passar como sobrecarga na requisição.
 - Como solução, a aplicação considera critérios como a presença ou ausência de campos (como `dataLocalizacao` ou `status`) para inferir esse status — o que pode não ser 100% preciso.
 - Por se tratar de dados públicos e sensíveis, a aplicação também se preocupa com a forma como apresenta essas informações, priorizando clareza e respeito às pessoas envolvidas.
 
