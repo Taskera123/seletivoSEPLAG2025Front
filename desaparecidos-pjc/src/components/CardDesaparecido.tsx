@@ -11,6 +11,7 @@ interface Props {
   situacao: string;
   dataDesaparecimento: string;
   paginaAtual: number;
+  situacaoAtualVivoMorto: boolean
 }
 
 export default function CardDesaparecido({
@@ -20,6 +21,7 @@ export default function CardDesaparecido({
   situacao,
   dataDesaparecimento,
   paginaAtual,
+  situacaoAtualVivoMorto
 }: Props) {
   const location = useLocation(); 
 
@@ -40,10 +42,12 @@ export default function CardDesaparecido({
       to={`/detalhes/${id}`}
       state={{ backgroundLocation: location, paginaAtual }}
     >
+      
       <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition cursor-pointer h-[400px] flex flex-col">
         <ImagemComFallback
           src={foto}
           alt={nome}
+          destaqueStatus={situacaoAtualVivoMorto == true ? 'Vivo' : "Morto"}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
 

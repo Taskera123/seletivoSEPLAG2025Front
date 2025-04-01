@@ -177,7 +177,9 @@ export default function Home() {
                     </div>
                 </div>
             )}
-
+            <div className=" dark:text-white px-4 py-3 transition ext-xl font-bold mb-4">
+                {filtros.status + "S"}
+            </div>
             {lista.length === 0 ? (
                 <div className="col-span-full text-center text-gray-500">Carregando dados...</div>
             ) : (
@@ -189,6 +191,7 @@ export default function Home() {
                             nome={d.nome}
                             foto={d.urlFoto}
                             situacao={filtros.status}
+                            situacaoAtualVivoMorto={d.vivo}
                             dataDesaparecimento={d.ultimaOcorrencia?.dtDesaparecimento ?? ""}
                             paginaAtual={numeroPagina + 1}
                         />

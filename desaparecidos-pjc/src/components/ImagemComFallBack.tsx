@@ -19,6 +19,7 @@ export default function ImagemComFallback({
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(false);
   const [isFallback, setIsFallback] = useState(false);
+  // const [situacao, setSituacao] = useState("Desaparecido");
 
   useEffect(() => {
     if (!src) {
@@ -29,11 +30,18 @@ export default function ImagemComFallback({
   }, [src]);
 
   const borderColor =
-    // destaqueStatus === "Morto" ? "border-red-400" : destaqueStatus === "Vivo" ? "border-green-400" : "border-gray-200";
     destaqueStatus === "Morto" ? "border-red-400" : "border-green-400";
   return (
     <div className={`relative ${borderColor} border-4 rounded`}>
       {carregando && <div className={skeletonClassName} />}
+
+      <span className={`absolute top-2 left-2 px-2 py-1 text-xs font-semibold rounded-full z-10
+    ${destaqueStatus === "Morto"
+          ? "bg-red-500 text-white"
+          : "bg-green-500 text-white"}
+  `}>
+        {destaqueStatus + "(a)"}
+      </span>
       <img
         loading="lazy"
         decoding="async"

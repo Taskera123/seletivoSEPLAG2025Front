@@ -135,7 +135,7 @@ export default function Detalhes() {
                     <p>
                         <strong>Situação:</strong>{" "}
                         <span className={`px-2 py-1 rounded text-white  ${vivo ? "bg-green-500" : "bg-red-500"}`}>
-                            {vivo ? "Vivo" : "Morto"}
+                            {vivo ? "Vivo(a)" : "Morto(a)"}
                         </span>
                     </p>
                     <p><strong>Data do desaparecimento:</strong> {new Date(ultimaOcorrencia.dtDesaparecimento).toLocaleDateString("pt-BR")}</p>
@@ -204,7 +204,7 @@ export default function Detalhes() {
             )}
 
             <div className="mt-6">
-                {vivo ? (
+                {ultimaOcorrencia.encontradoVivo != null ? (
                     <Link
                         to={`/enviar-informacoes/${id}`}
                         state={{ backgroundLocation: location }}
@@ -215,7 +215,7 @@ export default function Detalhes() {
                     </Link>
                 ) : (
                     <div className="bg-green-100 text-green-800 px-4 py-2 rounded text-center shadow w-full md:w-auto">
-                        <p className="font-semibold">Agradecemos pela colaboração 🙏</p>
+                        <p className="font-semibold">Agradecemos pela colaboração</p>
                         <p className="text-sm">Esta pessoa já foi localizada.</p>
                     </div>
                 )}
