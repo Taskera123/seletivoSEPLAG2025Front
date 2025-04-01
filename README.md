@@ -2,7 +2,7 @@
 
 Este repositório contém uma aplicação **Single Page Application (SPA)** desenvolvida para o teste prático de Desenvolvedor Front-end, consumindo a API pública da Polícia Judiciária Civil de Mato Grosso.
 
-## 👤 Informações do Aluno
+## 👤 Informações do Candidato
 
 - **Nome completo:** Lucas Henrique Tasca de Araujo  
 - **Número da inscrição:** 8313
