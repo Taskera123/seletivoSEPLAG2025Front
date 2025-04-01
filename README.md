@@ -1,4 +1,4 @@
-# Projeto para o seletivo SEPLAG fornt end 2025 pleno
+# Projeto para o seletivo SEPLAG front end 2025 pleno
 
 Este repositório contém uma aplicação **Single Page Application (SPA)** desenvolvida para o teste prático de Desenvolvedor Front-end, consumindo a API pública da Polícia Judiciária Civil de Mato Grosso.
 
