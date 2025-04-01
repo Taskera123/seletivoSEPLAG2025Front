@@ -30,7 +30,7 @@ export default function ImagemComFallback({
   }, [src]);
 
   const borderColor =
-    destaqueStatus === "Morto" ? "border-red-400" : "border-green-400";
+    destaqueStatus === "Morto" ? "border-red-400 " : "border-green-400";
   return (
     <div className={`relative ${borderColor} border-4 rounded`}>
       {carregando && <div className={skeletonClassName} />}
@@ -47,7 +47,7 @@ export default function ImagemComFallback({
         decoding="async"
         src={!erro && src ? src : imagemPadrao}
         alt={alt}
-        className={`${className} transition-opacity duration-500 ${carregando ? "opacity-0" : "opacity-100"
+        className={`${className}  transition-opacity duration-500 ${carregando ? "opacity-0" : "opacity-100"
           }`}
         onLoad={() => setCarregando(false)}
         onError={() => {
